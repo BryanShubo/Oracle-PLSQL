@@ -142,3 +142,6 @@ id name	email
 1   John Doe	johndoe@domain.com
 2   Jane Doe	janedoe@helloworld.com
 4   Foo Bar	foo@worldof.bar.net
+
+2.5 Group By
+
