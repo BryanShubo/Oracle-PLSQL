@@ -87,3 +87,58 @@ SELECT id, salary, salary - 80000, ABS(salary - 80000) FROM employee;
 3) Concatenate string:
 select ename ||', '||init as full_name from   employees;
 
+2.3 Where 
+-- The WHERE clause in a SELECT statement filters the rows;
+-- Notice that ORDER BY is applied last - after the SELECT .. FROM .. WHERE (ORDER BY).
+
+1) The WHERE clause first filters the rows returned, then the remaining rows are grouped into blocks by the GROUP BY clause.
+
+For example, the following query uses
+
+A WHERE clause to filter the rows from those whose salary is less than $50000
+A GROUP BY clause to group the remaining rows by the city column
+
+SELECT city, AVG(salary) FROM employee WHERE salary < 50000 GROUP BY city;
+
+2) Do calculation in where clause:
+SELECT title_name, price * sales AS "Revenue" FROM titles WHERE price * sales > 1000000;
+
+
+2.4 Order by
+-- The ORDER BY clause may specify one or more columns on which to sort the data
+-- The ORDER BY must follow the FROM clause or the WHERE clause (if a WHERE clause is supplied).
+-- Default is ASC (ascending). DESC is descending.
+
+1) ASC and DESC (column name or alias name):
+SELECT au_fname, au_lname, city, state FROM employees ORDER BY state ASC, city  DESC;
+
+2) Sort by index ascending and descending:
+SELECT au_fname, au_lname, city, state  FROM employees ORDER BY 4 ASC, 2 DESC; // state is asc and lname is desc.
+
+3) Combine order by clause with case statement: 
+ select job, ename,      case
+           when msal <= 2500   then 'cheap'
+           else 'expensive'
+           end         as class
+    from   employees
+    where  bdate < date '1964-01-01'
+    order  by case job
+             when 'DIRECTOR' then 1
+             when 'MANAGER'  then 2
+                             else 3
+             end;
+             
+4) Sorting email address:
+Query(For Sql Server):
+select * from mytbl order by SUBSTRING(email,(CHARINDEX('@',email)+1),1)
+
+Query(For Oracle):
+select * from mytbl order by substr(email,INSTR(email,'@',1) + 1,1)
+
+Output:
+id name	email
+5   Tarrack Ocama	me@am-no-president.org
+3   Ali Baba	ali@babaland.com
+1   John Doe	johndoe@domain.com
+2   Jane Doe	janedoe@helloworld.com
+4   Foo Bar	foo@worldof.bar.net
