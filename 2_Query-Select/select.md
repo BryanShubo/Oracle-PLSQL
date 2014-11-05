@@ -144,4 +144,10 @@ id name	email
 4   Foo Bar	foo@worldof.bar.net
 
 2.5 Group By
+-- The GROUP BY clause is used for grouping sets of records.
+
+-- WHERE clause constraints are evaluated on the data before it is grouped.
+
+-- HAVING clause constraints are evaluated on the results of the data after it has been grouped together.
+
 
