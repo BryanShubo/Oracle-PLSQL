@@ -1,6 +1,6 @@
---1.1.dual	
---1.2.Arithmetic operator	
---1.3.Comparison Operators	
+###1.1.dual	
+###1.2.Arithmetic operator	
+###1.3.Comparison Operators	
 --1.4.Logical Operators	
 --1.5.Null Values	
 --1.6.Print
