@@ -9,7 +9,7 @@
 --1.9.Terminology
 --1.10.Database Normalization
 
---1.1 dual
+#1.1 dual
 ------------------------------------------------------------------------------------------------
 -- dual is a table that contains a single row.
 -- The dual table has one VARCHAR2 column named dummy.
