@@ -45,7 +45,10 @@ ADD (ADDRESS varchar2(100),
 
 Modify an existing column 
 --increase or decrease the width of a column
---Changing the default value of a column
+----decreasing the size of a numeric column: the column must be empty
+----decreasing the size of a character column: can be done all existing values in the column are equal or less than the new width you to specify
+--Changing the data type of a column
+----The column must be empty (changing a varchar2 to char does not need the column being empty)
 --Changing the null or not null property of a column
 
 ALTER Table employees
@@ -54,4 +57,10 @@ MODIFY (ADDRESS VARCHAR2(150));
 Define a new default value for the column
 
 Rename and drop a column
+ALTER TABLE table_name
+RENAME COLUMN old_name TO new_name
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+DROP (first_name, last_name);
 ```
