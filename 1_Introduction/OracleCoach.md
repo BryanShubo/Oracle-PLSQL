@@ -4,12 +4,13 @@
 ###2. Structured Query Language SQL: RDBMS relational database management system
 
 ###3. SQL: sub languages 
+```
 Data definition language DDL: create / alter / drop
 Data manipulation language DML: insert/update/delete
 Data Control language DCL: grant/revoke
 Transaction control language TCL: commit/rollback
 Data retrieval language DRL: select
-
+```
 
 ###4. create a table
 ```
@@ -35,4 +36,22 @@ CREATE TABLE EMPBACKUP(fname, lname)
 AS SELECT first_name, last_name FROM EMPLOYEES;
 ```
 
+###6. Alter a table
+```
+Add a new column:
+ALTER TABLE employees
+ADD (ADDRESS varchar2(100),
+     PHONE varchar2(15));
 
+Modify an existing column 
+--increase or decrease the width of a column
+--Changing the default value of a column
+--Changing the null or not null property of a column
+
+ALTER Table employees
+MODIFY (ADDRESS VARCHAR2(150));
+
+Define a new default value for the column
+
+Rename and drop a column
+```
