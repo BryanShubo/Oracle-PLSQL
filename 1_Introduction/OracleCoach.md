@@ -134,9 +134,9 @@ A single row function acts on one row at a time, and will return a value for eac
 ```
 The following single row function must be used with select statement.
 ```
-UPPER()
-LOWER()
-select UPPER('hello') from dual;
+*select UPPER('hello') from dual; // HELLO
+
+select lower('CAT') from dual; //cat
 
 select INITCAP('hello world') from dual; // Hello World
 
