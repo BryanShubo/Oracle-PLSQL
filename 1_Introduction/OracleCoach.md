@@ -128,33 +128,33 @@ A percent sign (%) in the pattern can match zero or more characters (as opposed 
 IS is used to compare a column with null
 ```
 
-###11. Single-row functions and dual
+###11. Single-row functions--character functions
 ```
 A single row function acts on one row at a time, and will return a value for each row sent to it as input.
 ```
 The following single row function must be used with select statement.
 ```
-*select UPPER('hello') from dual; // HELLO
+1) select UPPER('hello') from dual; // HELLO
 
-select lower('CAT') from dual; //cat
+2)select lower('CAT') from dual; //cat
 
-select INITCAP('hello world') from dual; // Hello World
+3)select INITCAP('hello world') from dual; // Hello World
 
-select LENGTH('hello') from dual; // 5
+4)select LENGTH('hello') from dual; // 5
 
-select SUBSTR('hello', 2, 3) from dual; // Position starts from 1. 2-> start position, 3-> number of characters
+5)select SUBSTR('hello', 2, 3) from dual; // Position starts from 1. 2-> start position, 3-> number of characters
 
-select CONCAT('sql', 'plus') from dual; // sqlplus
+6)select CONCAT('sql', 'plus') from dual; // sqlplus
 
-select LPAD('hello', 10, '?') from dual; // ?????hello
+7)select LPAD('hello', 10, '?') from dual; // ?????hello
 
-select RPAD('hello', 10, '?') from dual; // hello?????
+8)select RPAD('hello', 10, '?') from dual; // hello?????
 
-select LTRIM('hellhhohehe', 'h') from dual; //ellhhohehe, delete the first character from left
+9)select LTRIM('hellhhohehe', 'h') from dual; //ellhhohehe, delete the first character from left
 
-select TTRIM('hellhhohehe', 'h') from dual; //hellhhohee, delete the first charactoer from right
+10)select TTRIM('hellhhohehe', 'h') from dual; //hellhhohee, delete the first charactoer from right
 
-TRIM( [ [ LEADING | TRAILING | BOTH ] trim_character FROM ] string1 )
+11)TRIM( [ [ LEADING | TRAILING | BOTH ] trim_character FROM ] string1 )
 TRIM('   tech   ')
 Result: 'tech'
 
@@ -170,3 +170,93 @@ Result: '1T1ech'
 TRIM(BOTH '1' FROM '123Te11ch111')
 Result: '23Te11ch'
 ```
+
+###12. Single row functions--numeric functions
+```
+1)select ROUND(27.566, 2) from dual; //27.57
+select ROUND(27.566) from dual;// 28
+
+2)select TRUNC(27.566, 2) from dual; // 27.56
+select TRUNC(27.566) from dual; // 27
+
+3)select ABS(-5) from dual; // 5
+select ABS(-5.66) from dual; // 5.66
+
+4)select FLOOR(38.9) from dual; // 38. Return the largest integer that less than the number.
+
+5)select CEIL(38.1) from dual; // 39. Return the smallest integer that greater than the number.
+
+6)select MOD(21, 4) from dual;// 1
+select MOD(-21.5, 4) from dual;// -1.5
+select MOD(21, 0) from dual;// 21
+select MOD(0, 4) from dual;// 0
+select MOD(0,0) from dual;// 0
+```
+
+###13. Single row function--Date Functions
+```
+1)select SYSDATE from dual; //'25-JAN-15'
+
+2)select SYSTIMESTAMP from dual; //25-JAN-15 08.06.17.968000000 PM -05:00
+
+3)select ADD_MONTHS('2-MAY-10', 2) from dual; // '2-JUL-10'
+select ADD_MONTHS('2-MAY-10', -2) from dual; // '2-MAR-10'
+
+4)select MONTHS_BETWEEN('1-Jan-15', 17-JAN-14) from dual;// 11.48387096774193548387096774193548387097
+
+5)select TRUNC(sysdate, 'YEAR') from dual; // the first date of the year in the date 
+select TRUNC(sysdate, 'MONTH') from dual; // the first date of the month in the date
+```
+
+###14. Single row function--Conversion Functions
+```
+1) select TO_CHAR(sysdate, 'ddth "of" MONTH, YYYY') from dual;
+   select TO_CHAR(4578900.13, '$999,999.99') from dual;
+   
+2) select TO_DATE('3 of June, 2010', 'dd "of" Month, YYYY') from dual;
+
+3) select TO_NUMBER('$45.6', '$99.9') + 3 from dual; // 48.6
+
+```
+
+###15. Single row--Null Functions
+```
+1)NVL(column, 0) // if column is null, use 0
+
+2) NVL2(column, 'new value', '0') // if column is null, use '0'. Otherwise, use 'new value'.
+
+3) NULLIF(expr1, expr2) // expr1 == expr2, return null. Otherwise, return expr1.
+```
+
+###15. Group functions
+```
+1)SUM // numeric only
+
+2)AVG // numeric only
+
+3)MAX // all data types: numeric, character, and date
+
+4)MIN // all data types: numeric, character, and date
+
+5)COUNT(*) // return the number of rows in the table or group
+  COUNT(column) // return the number of non-null value in that column
+
+6)GROUP BY:
+--allow you to create sub groups
+--every distinct value of the column mentioned in the group by clause becomes a separate goup
+--rows that are associated with the column value fall into the sub group
+--the group function is then applied to the sub groups to create a value for each sub group
+
+7)HAVING: restriction groups
+SELECT column_list FROM table_name
+WHERE condition
+GROUP BY column(s)
+HAVING condition
+ORDER BY column;
+
+
+SELECT JOB_ID, SUM(salary) from EMPLOYEES where JOB_ID like'A%' GROUP BY JOB_ID HAVING SUM(SALARY)>10000;
+
+```
+
+https://www.youtube.com/watch?v=6_9--1noDeA&index=32&list=PLA58A0D850B6869DA
