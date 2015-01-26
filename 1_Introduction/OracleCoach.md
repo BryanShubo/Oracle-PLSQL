@@ -259,4 +259,47 @@ SELECT JOB_ID, SUM(salary) from EMPLOYEES where JOB_ID like'A%' GROUP BY JOB_ID 
 
 ```
 
-https://www.youtube.com/watch?v=6_9--1noDeA&index=32&list=PLA58A0D850B6869DA
+###16. Data Dictionary
+```
+16.1 User created tables
+
+16.2 Database system created table: data dictionary tables
+tables/indexes/views/users /sequences/packages//privileges
+-- Central to every Oracle database
+-- Describes the database and its objects
+-- Can be used as a read-only reference
+-- Updated when DDL and DCL commands are issued
+-- Owned by the user SYS
+-- Stored in the SYSTEM tablespace
+-- SELECT_CATALOG_ROLE role to access all its contents
+
+Categories of Data Dictionary Views:
+-- DBA_objectname: All of the objects in the database
+-- ALL_objectname: Objects OWNED and ACCESS by the current user
+-- USER_objectname: Objects OWNED by the current user
+
+
+GRANT SELECT ON table_name on USER
+```
+
+```
+1) select table_name from user_tables;
+
+2) select view_name, text from user_views;
+
+3) select sequence_name from user_sequences;
+
+4) select synonym_name from user_synonyms;
+
+5) select index_name from user_indexes;
+```
+
+```
+ALTER TABLE table_name
+ADD CONSTRAINT apk PRIMARY KEY(A)
+
+6) select constraint_name, constraint_type from user_constraints where table_name = 'NEWTAB';
+
+7) select constraint_name, column_name from user_cons_columns where table_name ='NEWTAB';
+```
+
