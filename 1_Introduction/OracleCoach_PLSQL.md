@@ -85,3 +85,143 @@ DBMS_OUTPUT.PUT_LINE(TO_CHAR(vSalary));
 DBMS_OUTPUT.PUT_LINE(vName);
 DBMS_OUTPUT.PUT_LINE('The name is ' || vName);
 ```
+
+###4. IF statement
+```
+Syntax:
+
+IF condition THEN
+statement(s);
+ELSIF condition THEN
+statement(s);
+ELSIF condition THEN
+statement(s);
+ELSE
+statement(s);
+END IF;
+```
+
+###5. LOOP Statements
+####5.1 Loop
+```
+   {...statements...}
+END LOOP;
+
+Example:
+LOOP
+   monthly_value := daily_value * 31;
+   EXIT WHEN monthly_value > 4000;
+END LOOP;
+```
+####5.2 While Loop
+```
+WHILE(condition) LOOP
+executable statement(s);
+END LOOP;
+
+Example:
+WHILE monthly_value <= 4000
+LOOP
+   monthly_value := daily_value * 31;
+END LOOP;
+```
+####5.3 For Loop
+```
+FOR...LOOP...END LOOP
+
+Example:
+FOR Lcntr IN 1..20
+LOOP
+   LCalc := Lcntr * 31;
+END LOOP;
+
+Example: cursor for loop
+FOR record_index in cursor_name
+LOOP
+   {...statements...}
+END LOOP;
+
+CREATE OR REPLACE Function TotalIncome
+   ( name_in IN varchar2 )
+   RETURN varchar2
+IS
+   total_val number(6);
+
+   cursor c1 is
+     SELECT monthly_income
+     FROM employees
+     WHERE name = name_in;
+
+BEGIN
+
+   total_val := 0;
+
+   FOR employee_rec in c1
+   LOOP
+      total_val := total_val + employee_rec.monthly_income;
+   END LOOP;
+
+   RETURN total_val;
+
+END;
+```
+####5.4 Case
+```
+CASE [ expression ]
+
+   WHEN condition_1 THEN result_1
+   WHEN condition_2 THEN result_2
+   ...
+   WHEN condition_n THEN result_n
+
+   ELSE result
+
+END
+
+Example:
+SELECT table_name,
+CASE owner
+  WHEN 'SYS' THEN 'The owner is SYS'
+  WHEN 'SYSTEM' THEN 'The owner is SYSTEM'
+  ELSE 'The owner is another value'
+END
+FROM all_tables;
+```
+####5.5 GOTO
+```
+CREATE OR REPLACE Function FindCourse
+   ( name_in IN varchar2 )
+   RETURN number
+IS
+   cnumber number;
+
+   CURSOR c1
+   IS
+     SELECT MAX(course_number)
+     FROM courses_tbl
+     WHERE course_name = name_in;
+
+BEGIN
+
+   open c1;
+   fetch c1 into cnumber;
+
+   IF c1%notfound then
+      GOTO default_number;
+
+   ELSE
+      GOTO increment_number;
+   END IF;
+
+<<default_number>>
+   cnumber := 0;
+
+<<increment_number>>
+   cnumber := cnumber + 1;
+
+   close c1;
+
+RETURN cnumber;
+   
+END;
+```
