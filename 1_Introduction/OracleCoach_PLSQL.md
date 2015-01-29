@@ -33,7 +33,7 @@ END:
 /
 ```
 
-The Declaration Section
+###2. The Declaration Section
 ```
 -- Is an optional section
 -- Used to declare the variables that will be used in the program
@@ -62,4 +62,26 @@ vFname VARCHAR2(30):='John';
 vLname VARCHAR2(30) NOT NULL:='Swift'; -- this variable cannot be assign an null value in the program
 vActive BOOLEAN:=FALSE;
 
+The assignment operator:     :=
+```
+
+###3. Body block
+```
+-- Every PL/SQL block should have a body
+-- The body is contained of one or more executable statements enclosed between keywords BEGIN and END
+-- Each executable statement is terminated with aq semicolon.
+-- Teh termination of the block is indicated by a forward slash as the first character on a new line
+```
+
+```
+DBMS_OUTPUT.PUT_LINE
+-- Used to display a string on the screen. The string should be enclosed in single quotes
+-- A variable name should not be enclosed in single quotes.
+-- If the variable is not a character variable, use the to_char function around the variable name
+-- Combine a string with a variable with the use of the concatenation character (double pipe ||)
+
+DBMS_OUTPUT.PUT_LINE('Hello world');
+DBMS_OUTPUT.PUT_LINE(TO_CHAR(vSalary));
+DBMS_OUTPUT.PUT_LINE(vName);
+DBMS_OUTPUT.PUT_LINE('The name is ' || vName);
 ```
