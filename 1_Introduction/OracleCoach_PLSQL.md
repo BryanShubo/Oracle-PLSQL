@@ -227,3 +227,48 @@ END;
 ```
 
 ###6. User Creation
+```
+Database:
+SYSTEM: system tables, dictionary tables
+SYSAUX: maintained by specific features, like oracle scheduler, oracle data mining, etc.
+USERS: user tables and objects
+TEMP: temperal objects, like sorting
+UNDO: for rollback and reconsistence
+```
+
+Space for a new user
+```
+A new user associated with a tablespace takes the space from USERS. A schema is : a logic grouping of objects that belonging to an user.
+```
+Checklist - Creating a USer
+```
+1) Choose a username and password
+2) Identify the default tablespace(DEFAULT TABLESPACE clause)
+3) Identify the temporary tablespace(TEMPORARY TABLESPACE clause)
+4) Identify the amount of space(quota) to allocate on one or more tablespace(QUOTA n on tablespace_name clause)
+5) Define the lock status(ACCOUNT LOCK | UNLOCK)
+```
+Syntax:
+```
+CREATE USER username
+IDENTIFIED BY password
+[DEFAULT TABLESPACE tablespace_name
+TEMPORARY TABLESPACE tablespace_name
+QUOTA n ON tablespace_name
+ACCOUNT lock_status]
+-- [] part is optional
+
+Example:
+CREATE USER sid
+IDENTIFIED BY sidPass
+DEFAULT TABLESPACE users
+TEMPORARY TABLESPACE temp
+QUOTA 10M ON users
+QUOTA 3M ON indx
+ACCOUNT unlock
+```
+
+```
+The data dictionary view DBA_TABLESPACSES displays information about tablespaces.
+SELECT TABLESPACE_NAME FROM DBA_TABLESPACES;
+```
