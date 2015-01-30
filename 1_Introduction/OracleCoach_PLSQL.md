@@ -321,3 +321,81 @@ REVOKE [system_privilege, system_privilege...] FROM [user, user,...]
 Example:
 REVOKE CREATE TABLE FROM SID;
 ```
+Checking current table privileges:
+```
+SELECT * FROM SESSION_PRIVS;
+```
+####7.2 Object Privileges
+```
+-- Are relevant to specific object
+-- Is a privilege or right to perform a particular action on a specific table, view, sequenc3e, procedure, function or package.
+--The privilege depends on the type of object.
+```
+Object Privileges:
+```
+SELECT / INSERT / UPDATE / DELETE / ALTER / REFERENCES / INDEX / EXECUTE
+```
+Granting Object Privileges
+```
+GRANT [object_priv, object_priv, ..| ALL] ON object_name TO [user, user, ...]
+
+Examples:
+1) GRANT select ON EMPLOYEES TO SID;
+2) GRANT INSERT, UPDATE ON DEPARTMENTS TO SID;
+3) GRANT UPDATE(SAL) ON EMPLOYEES TO SID;
+4) GRANT EXECUTE ON PROC1 TO SID;
+```
+Revoking Object Privileges
+```
+REVOKE [object_priv, object_priv, ...] ON object_name FROM [user_name, user_name, ...]
+```
+Viewing the privileges
+```
+the following query can be used to determine all the object privileges that user SID has on HR objects.
+
+SELECT grantee, owner, grantor, privilege, table_name FROM user_tab_privs WHERE owner='HR';
+```
+
+###8. Managing Roles
+```
+Administrators / Analysts / Programmers
+
+Role: a logic group of privileges. It is used to manage privileges.
+```
+Creating Roles
+```
+CREATE ROLE rolename
+[IDENTIFIED BY password]
+
+Examples:
+CREATE ROLE dev1
+
+CREATE ROLE dev2
+IDENTIFIED BY pass2
+```
+Granting Privileges to Roles
+```
+GRANT privilege, privilege, ... TO rolename
+
+Example:
+GRANT CREATE TABLE, CREATE SESSION, UNLIMITED TABLESPACE, CREATE VIEW
+TO dev2;
+```
+Granting Roles to Users
+```
+GRANT rolename, rolename, ... TO username, username,...
+```
+Some Predefined Roles:
+```
+ROLENAME   PRIVILEGES
+CONNECT: CREATE SESSION
+RESOURCE: CREATE CLUSTER, CREATE OPERATOR, CREATE INDEXTYPE, CREATE PROCEDURE, CREATE SEQUENCE, CREATE TABLE,CREATE TRIGGER, CREATE TYPE, etc.
+DBA: PRIVILEGES TO ADMINISTER THE DATABASE
+```
+Removing Roles
+```
+-- Removes it from all users and roles it was granted
+-- Removes it from the database
+Syntax:
+DROP ROLE rolename;
+```
