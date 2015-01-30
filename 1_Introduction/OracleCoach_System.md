@@ -156,6 +156,7 @@ TO dev2;
 Granting Roles to Users
 ```
 GRANT rolename, rolename, ... TO username, username,...
+GRANT rolename TO rolename
 ```
 Some Predefined Roles:
 ```
@@ -164,10 +165,55 @@ CONNECT: CREATE SESSION
 RESOURCE: CREATE CLUSTER, CREATE OPERATOR, CREATE INDEXTYPE, CREATE PROCEDURE, CREATE SEQUENCE, CREATE TABLE,CREATE TRIGGER, CREATE TYPE, etc.
 DBA: PRIVILEGES TO ADMINISTER THE DATABASE
 ```
+Checking current roles
+```
+SELECT * FROM SESSION_ROLES;
+```
+
 Removing Roles
 ```
 -- Removes it from all users and roles it was granted
 -- Removes it from the database
 Syntax:
 DROP ROLE rolename;
+```
+
+###4. Oracle system files
+```
+Registry Editor:
+ORACLE_BASE
+ORACLE_HOME
+ORACLE_SID
+```
+
+###5. Starting Up the Database
+starting up: making the database available for use
+```
+SQL>STARTUP
+1) Instance Created -- references the parameter file
+2) Database Mounted -- references the control file
+3) Database Opened
+```
+Stages of Startup
+```
+1) NOMOUNT
+2) MOUNT
+3) OPEN
+```
+Options for startup
+```
+SQL> STARTUP NOMOUNT -- only instance is created
+SQL> STARTUP MOUNT -- instance is created and database mounted
+SQL> STARTUP -- instance is created, database mounted and database opend
+SQL> STARTUP FORCE -- current instance is aborted, instance created database mounted and database opend
+SQL> STARTUP RESTRICT -- database opened only for users with restricted session system privilege
+```
+Altering a database
+```
+SQL>STARTUP NOMOUNT
+SQL>ALTER DATABASE MOUNT
+
+
+SQL>STARTUP MOUNT
+SQL>ALTER DATABASE OPEN
 ```
