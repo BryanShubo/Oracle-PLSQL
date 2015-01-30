@@ -272,3 +272,7 @@ ACCOUNT unlock
 The data dictionary view DBA_TABLESPACSES displays information about tablespaces.
 SELECT TABLESPACE_NAME FROM DBA_TABLESPACES;
 ```
+
+```
+The default tablespace is the table space where an object created by the user is automatically stored when the user does not explicitly identify the tablespace for an object.
+```
