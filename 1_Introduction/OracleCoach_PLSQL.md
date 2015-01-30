@@ -276,3 +276,48 @@ SELECT TABLESPACE_NAME FROM DBA_TABLESPACES;
 ```
 The default tablespace is the table space where an object created by the user is automatically stored when the user does not explicitly identify the tablespace for an object.
 ```
+
+###7. Data Control Language--managing System Privileges
+User can do nothing in the database without the necessary privileges.
+```
+Privilege: is right to perform an action in the database.
+-- the action to connect to the database
+-- the ability to create a table
+-- the ability to create a user
+```
+Two types of privileges:
+```
+1) System Privileges
+Enables users to perform particular actions in the database, like creating a table
+2) Object Privileges
+Enables a user to access and manipulate a specific object, such as a table , view, sequence, precedure, function or package belonging to another user.
+```
+####7.1 System Privileges
+There are more than 200 distinct system privileges
+```
+SELECT * FROM SYSTEM_PRIVILEGE_MAP;
+```
+Examples of system privileges:
+```
+CREATE SESSION
+CREATE TABLE
+CREATE VIEW
+CREATE SEQUENCE
+```
+Granting System Privileges: The GRANT command adds privilege to a user or a group of users
+```
+Syntax:
+GRANT [system_privilege, system_privilege, ...] TO [user, user,...]
+
+Example:
+GRANT CREATE SESSION, CREATE TABLE TO SID;
+-- CREATE SESSION gives user the ability to connect to database.
+```
+Revoking Privileges: Use the REVOKE command to remove a system privilege from a user.
+```
+Syntax:
+REVOKE [system_privilege, system_privilege...] FROM [user, user,...]
+
+Example:
+REVOKE CREATE TABLE FROM SID;
+```
