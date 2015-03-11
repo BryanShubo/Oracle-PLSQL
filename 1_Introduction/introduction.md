@@ -1,6 +1,6 @@
---1.1.dual	
---1.2.Arithmetic operator	
---1.3.Comparison Operators	
+###1.1.dual	
+###1.2.Arithmetic operator	
+###1.3.Comparison Operators	
 --1.4.Logical Operators	
 --1.5.Null Values	
 --1.6.Print
@@ -9,7 +9,7 @@
 --1.9.Terminology
 --1.10.Database Normalization
 
---1.1 dual
+#1.1 dual
 ------------------------------------------------------------------------------------------------
 -- dual is a table that contains a single row.
 -- The dual table has one VARCHAR2 column named dummy.
@@ -82,3 +82,9 @@ Violations of Second Normal Form occur when the table contains attributes that d
 Second Normal Form violations can exist only when you have a multi-column primary key.
 Third Normal Form violations occur when a transitive dependency exists.
 All attributes in entities (columns in tables) must be dependent upon the primary key or one of the candidate keys and not on other attributes.
+
+
+
+USER_OBJECTS shows the current user objects.
+ALL_OBJECTS shows all objects of current and those object which you have rights to access.
+DBA_OBJECTS shows all object of all users .
