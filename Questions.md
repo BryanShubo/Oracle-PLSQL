@@ -1,54 +1,40 @@
 
-
-
-1.Drop Vs Truncate
+1 Drop Vs Truncate
 ```
-DROP does double work - First it removes data and secondly it removes the structure of table
+DROP: First it removes data and secondly it removes the structure of table
 Truncate just deletes the data.
 ```
 
-1. What is PL/SQL ?
-
+2 What is PL/SQL ?
+```
 PL/SQL is a procedural language which has interactive SQL, as well as procedural programming language constructs like conditional branching and iteration.
-
+```
  
 
-2. Differentiate between % ROWTYPE and TYPE RECORD.
-
+3 Differentiate between % ROWTYPE and TYPE RECORD.
+```
 % ROWTYPE is used when a query returns an entire row of a table or view.
-
 TYPE RECORD, on the other hand, is used when a query returns column of different tables or views.
 
 Eg.  TYPE r_emp is RECORD (sno smp.smpno%type,sname smp sname %type)
-
 e_rec smp ROWTYPE
-
 Cursor c1 is select smpno,dept from smp;
-
 e_rec c1 %ROWTYPE
-
+```
  
 
-3. Explain uses of cursor.
-
+4 Explain uses of cursor.
+```
 Cursor is a named private area in SQL from which information can be accessed. They are required to process each row individually for queries which return multiple rows.
 
- 
-
-4. Show code of a cursor for loop.
-
-Cursor declares %ROWTYPE as loop index implicitly. It then opens a cursor, gets rows of values from the active set in fields of the record and shuts when all records are processed.
-
 Eg.  FOR smp_rec IN C1 LOOP
-
 totalsal=totalsal+smp_recsal;
-
 ENDLOOP;
-
+```
  
 
-5. Explain the uses of database trigger.
-
+5 Explain the uses of database trigger.
+```
 A PL/SQL program unit associated with a particular database table is called a database trigger. It is used for :
 
 1)Audit data modifications.
@@ -62,17 +48,17 @@ A PL/SQL program unit associated with a particular database table is called a da
 5)Derive column values
 
 6)Implement Complex security authorizations
-
+```
  
 
-6. What are the two types of exceptions.
-
+6 What are the two types of exceptions.
+```
 Error handling part of PL/SQL block is called Exception. They have two types : user_defined and predefined.
-
+```
  
 
-7. Show some predefined exceptions.
-
+7 Show some predefined exceptions.
+```
 DUP_VAL_ON_INDEX
 
 ZERO_DIVIDE
@@ -98,17 +84,16 @@ LOGON_DENIED
 VALUE_ERROR
 
 etc.
-
+```
  
 
-8. Explain Raise_application_error.
-
+8 Explain Raise_application_error.
+```
 It is a procedure of package DBMS_STANDARD that allows issuing of user_defined error messages from database trigger or stored sub-program.
-
+```
  
-
-9.Show how functions and procedures are called in a PL/SQL block.
-
+9 Show how functions and procedures are called in a PL/SQL block.
+```
 Function is called as a part of an expression.
 
 total:=calculate_sal(‘b644’)
@@ -116,11 +101,10 @@ total:=calculate_sal(‘b644’)
 Procedure is called  as a statement in PL/SQL.
 
 calculate_bonus(‘b644’);
-
+```
  
-
-10. Explain two virtual tables available at the time of database trigger execution.
-
+10 Explain two virtual tables available at the time of database trigger execution.
+```
 Table columns are referred as THEN.column_name and NOW.column_name.
 
 For INSERT related triggers, NOW.column_name values are available only.
@@ -128,7 +112,7 @@ For INSERT related triggers, NOW.column_name values are available only.
 For DELETE related triggers, THEN.column_name values are available only.
 
 For UPDATE related triggers, both Table columns are available.
-
+```
  
 
 11. What are the rules to be applied to NULLs whilst doing comparisons?
