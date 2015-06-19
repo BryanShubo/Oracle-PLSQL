@@ -7,7 +7,8 @@ Truncate just deletes the data.
 
 2 What is PL/SQL ?
 ```
-PL/SQL is a procedural language which has interactive SQL, as well as procedural programming language constructs like conditional branching and iteration.
+PL/SQL is a procedural language which has interactive SQL, as well as procedural programming 
+language constructs like conditional branching and iteration.
 ```
  
 
