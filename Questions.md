@@ -25,7 +25,8 @@ e_rec c1 %ROWTYPE
 
 4 Explain uses of cursor.
 ```
-Cursor is a named private area in SQL from which information can be accessed. They are required to process each row individually for queries which return multiple rows.
+Cursor is a named private area in SQL from which information can be accessed. They are required to 
+process each row individually for queries which return multiple rows.
 
 Eg.  FOR smp_rec IN C1 LOOP
 totalsal=totalsal+smp_recsal;
@@ -35,7 +36,8 @@ ENDLOOP;
 
 5 Explain the uses of database trigger.
 ```
-A PL/SQL program unit associated with a particular database table is called a database trigger. It is used for :
+A PL/SQL program unit associated with a particular database table is called a database trigger. 
+It is used for :
 
 1)Audit data modifications.
 
