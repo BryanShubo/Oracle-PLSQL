@@ -43,12 +43,13 @@ ADD (ADDRESS varchar2(100),
      PHONE varchar2(15));
 
 Modify an existing column 
---increase or decrease the width of a column
-----decreasing the size of a numeric column: the column must be empty
-----decreasing the size of a character column: can be done all existing values in the column are equal or less than the new width you to specify
---Changing the data type of a column
-----The column must be empty (changing a varchar2 to char does not need the column being empty)
---Changing the null or not null property of a column
+**increase or decrease the width of a column
+****decreasing the size of a numeric column: the column must be empty
+****decreasing the size of a character column: can be done all existing values in the column are 
+     equal or less than the new width you to specify
+**Changing the data type of a column
+****The column must be empty (changing a varchar2 to char does not need the column being empty)
+**Changing the null or not null property of a column
 
 ALTER Table employees
 MODIFY (ADDRESS VARCHAR2(150));
@@ -66,15 +67,17 @@ DROP (first_name, last_name);
 ### LIKE, IS
 ```
 The pattern can contain special pattern-matching characters:
+An underscore (_) in the pattern matches exactly one character (as opposed to one byte in 
+a multibyte character set) in the value.
 
-An underscore (_) in the pattern matches exactly one character (as opposed to one byte in a multibyte character set) in the value.
-
-A percent sign (%) in the pattern can match zero or more characters (as opposed to bytes in a multibyte character set) in the value. The pattern '%' cannot match a null.
+A percent sign (%) in the pattern can match zero or more characters (as opposed to bytes in a 
+multibyte character set) in the value. The pattern '%' cannot match a null.
 
 IS is used to compare a column with null
 ```
 
-### Single-row functions--character functions
+### Single-row functions
+1) character functions
 ```
 A single row function acts on one row at a time, and will return a value for each row sent to it as input.
 ```
@@ -117,7 +120,7 @@ TRIM(BOTH '1' FROM '123Te11ch111')
 Result: '23Te11ch'
 ```
 
-### Single row functions--numeric functions
+2) numeric functions
 ```
 1)select ROUND(27.566, 2) from dual; //27.57
 select ROUND(27.566) from dual;// 28
@@ -139,7 +142,7 @@ select MOD(0, 4) from dual;// 0
 select MOD(0,0) from dual;// 0
 ```
 
-### Single row function--Date Functions
+3) Date Functions
 ```
 1)select SYSDATE from dual; //'25-JAN-15'
 
@@ -154,7 +157,7 @@ select ADD_MONTHS('2-MAY-10', -2) from dual; // '2-MAR-10'
 select TRUNC(sysdate, 'MONTH') from dual; // the first date of the month in the date
 ```
 
-### Single row function--Conversion Functions
+4) Conversion Functions
 ```
 1) select TO_CHAR(sysdate, 'ddth "of" MONTH, YYYY') from dual;
    select TO_CHAR(4578900.13, '$999,999.99') from dual;
@@ -165,7 +168,7 @@ select TRUNC(sysdate, 'MONTH') from dual; // the first date of the month in the 
 
 ```
 
-### Single row--Null Functions
+5) Null Functions
 ```
 1)NVL(column, 0) // if column is null, use 0
 
@@ -174,7 +177,7 @@ select TRUNC(sysdate, 'MONTH') from dual; // the first date of the month in the 
 3) NULLIF(expr1, expr2) // expr1 == expr2, return null. Otherwise, return expr1.
 ```
 
-###15. Group functions
+### Group functions
 ```
 1)SUM // numeric only
 
@@ -206,10 +209,9 @@ SELECT JOB_ID, SUM(salary) from EMPLOYEES where JOB_ID like'A%' GROUP BY JOB_ID 
 ```
 
 ### Data Dictionary
+1) User created tables
+2) Database system created table: data dictionary tables
 ```
-16.1 User created tables
-
-16.2 Database system created table: data dictionary tables
 tables/indexes/views/users /sequences/packages//privileges
 -- Central to every Oracle database
 -- Describes the database and its objects
@@ -269,15 +271,20 @@ One or more scalar typed object attributes of a table or a cluster
 
 A nested table storage table for indexing a nested table column
 
-An index is a schema object that contains an entry for each value that appears in the indexed column(s) of the table or cluster and provides direct, fast access to rows. Oracle Database supports several types of index:
+An index is a schema object that contains an entry for each value that appears in the 
+indexed column(s) of the table or cluster and provides direct, fast access to rows. Oracle Database 
+supports several types of index:
 
 Normal indexes. (By default, Oracle Database creates B-tree indexes.)
 
 Bitmap indexes, which store rowids associated with a key value as a bitmap
 
-Partitioned indexes, which consist of partitions containing an entry for each value that appears in the indexed column(s) of the table
+Partitioned indexes, which consist of partitions containing an entry for each value that appears in 
+the indexed column(s) of the table
 
-Function-based indexes, which are based on expressions. They enable you to construct queries that evaluate the value returned by an expression, which in turn may include built-in or user-defined functions.
+Function-based indexes, which are based on expressions. They enable you to construct queries that 
+evaluate 
+the value returned by an expression, which in turn may include built-in or user-defined functions.
 
 Domain indexes, which are instances of an application-specific index of type indextype
 ```
@@ -285,11 +292,17 @@ Domain indexes, which are instances of an application-specific index of type ind
 ```
 Purpose
 
-Use the CREATE SYNONYM statement to create a synonym, which is an alternative name for a table, view, sequence, procedure, stored function, package, materialized view, Java class schema object, user-defined object type, or another synonym.
+Use the CREATE SYNONYM statement to create a synonym, which is an alternative name for a table, view, 
+sequence, procedure, stored function, package, materialized view, Java class schema object, 
+user-defined object type, or another synonym.
 
-Synonyms provide both data independence and location transparency. Synonyms permit applications to function without modification regardless of which user owns the table or view and regardless of which database holds the table or view. However, synonyms are not a substitute for privileges on database objects. Appropriate privileges must be granted to a user before the user can use the synonym.
+Synonyms provide both data independence and location transparency. Synonyms permit applications to f
+unction without modification regardless of which user owns the table or view and regardless of which 
+database holds the table or view. However, synonyms are not a substitute for privileges on database 
+objects. Appropriate privileges must be granted to a user before the user can use the synonym.
 
-You can refer to synonyms in the following DML statements: SELECT, INSERT, UPDATE, DELETE, FLASHBACK TABLE, EXPLAIN PLAN, and LOCK TABLE.
+You can refer to synonyms in the following DML statements: SELECT, INSERT, UPDATE, DELETE, FLASHBACK 
+TABLE, EXPLAIN PLAN, and LOCK TABLE.
 
 You can refer to synonyms in the following DDL statements: AUDIT, NOAUDIT, GRANT, REVOKE, and COMMENT.
 
