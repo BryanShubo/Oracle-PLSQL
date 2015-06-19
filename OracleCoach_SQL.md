@@ -91,7 +91,7 @@ The following single row function must be used with select statement.
 
 4)select LENGTH('hello') from dual; // 5
 
-5)select SUBSTR('hello', 2, 3) from dual; // Position starts from 1. 2-> start position, 3-> number of characters
+5)select SUBSTR('hello', 2, 3) from dual; // Position starts from 1. 2->start point, 3-> number of chars
 
 6)select CONCAT('sql', 'plus') from dual; // sqlplus
 
