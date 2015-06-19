@@ -1,5 +1,5 @@
 
-###1. schema is a logical collection of objects that belong to a user.
+###1. Schema is a logical collection of objects that belong to a user.
 
 ###2. Structured Query Language SQL: RDBMS relational database management system
 
