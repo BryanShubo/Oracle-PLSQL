@@ -13,16 +13,17 @@ Data retrieval language DRL: select
 ```
 
 ### Manipulate table
+1) Create a table
 ```
-1) Create a tablle
 CREATE TABLE [schema.]table
 (column datatype[size] [DEFAULT expr][, ...]);
 
 datatype: number, char, varchar2, date
 Explanation: NUMBER(12,2) 12 is the precision, 2 is the scale
-
+```
 2) create a table using exist table
 
+```
 CREATE TABLE table_name
 AS select statement...
 
@@ -32,10 +33,10 @@ AS SELECT first_name fname, last_name lname FROM EMPLOYEES;
 or
 CREATE TABLE EMPBACKUP(fname, lname)
 AS SELECT first_name, last_name FROM EMPLOYEES;
-
+```
 
 3)  Alter a table
-
+```
 Add a new column:
 ALTER TABLE employees
 ADD (ADDRESS varchar2(100),
