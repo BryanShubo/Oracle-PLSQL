@@ -17,7 +17,7 @@ RDBMS relational database management system
  ```
  insert/update/delete
  ```
- ** DCL** (Data Control language) :
+ **DCL** (Data Control language) :
  ```
  grant/revoke
  ```
@@ -25,7 +25,7 @@ RDBMS relational database management system
  ```
  commit/rollback
  ```
- Data retrieval language DRL:
+ **DRL** (Data retrieval language):
  ```
  select
 ```
