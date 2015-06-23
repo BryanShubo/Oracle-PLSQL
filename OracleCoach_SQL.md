@@ -9,7 +9,7 @@ RDBMS relational database management system
 ```
 
 ### SQL: sub languages 
-Data definition language DDL:
+Data definition language **DDL**:
 ```
  create / alter / drop
  ```
