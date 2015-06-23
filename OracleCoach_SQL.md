@@ -1,15 +1,33 @@
 
-### Schema is a logical collection of objects that belong to a user.
-
-### Structured Query Language SQL: RDBMS relational database management system
+### Schema
+```
+Schema is a logical collection of objects that belong to a user.
+```
+### Structured Query Language SQL: 
+```
+RDBMS relational database management system
+```
 
 ### SQL: sub languages 
+Data definition language DDL:
 ```
-Data definition language DDL: create / alter / drop
-Data manipulation language DML: insert/update/delete
-Data Control language DCL: grant/revoke
-Transaction control language TCL: commit/rollback
-Data retrieval language DRL: select
+ create / alter / drop
+ ```
+ Data manipulation language DML:
+ ```
+ insert/update/delete
+ ```
+ Data Control language DCL:
+ ```
+ grant/revoke
+ ```
+ Transaction control language TCL:
+ ```
+ commit/rollback
+ ```
+ Data retrieval language DRL:
+ ```
+ select
 ```
 
 ### Manipulate table
