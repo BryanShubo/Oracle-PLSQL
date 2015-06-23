@@ -9,19 +9,19 @@ RDBMS relational database management system
 ```
 
 ### SQL: sub languages 
-Data definition language **DDL**:
+**DDL** (Data definition language):
 ```
  create / alter / drop
  ```
- Data manipulation language DML:
+**DML**( Data manipulation language ):
  ```
  insert/update/delete
  ```
- Data Control language DCL:
+ ** DCL** (Data Control language) :
  ```
  grant/revoke
  ```
- Transaction control language TCL:
+ **TCL** (Transaction control language):
  ```
  commit/rollback
  ```
