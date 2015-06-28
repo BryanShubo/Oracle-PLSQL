@@ -30,7 +30,7 @@ RDBMS relational database management system
  select
 ```
 
-### SELECT (filting or sorting data)
+### SELECT (filting or sorting data) from one table
 **LIKE** 
 ```
 The pattern can contain special pattern-matching characters:
@@ -41,65 +41,11 @@ The pattern can contain special pattern-matching characters:
 
 **IS**  is used to compare a column with null
 
-**ORDER BY ** : put it at the end of SELECT clause
+**ORDER BY** : put it at the end of SELECT clause
 ```
 1)ASC
 2)DESC
 ```
-
-### Manipulate table
-1) Create a table
-```
-CREATE TABLE [schema.]table
-(column datatype[size] [DEFAULT expr][, ...]);
-
-datatype: number, char, varchar2, date
-Explanation: NUMBER(12,2) 12 is the precision, 2 is the scale
-```
-2) create a table using exist table
-
-```
-CREATE TABLE table_name
-AS select statement...
-
-CREATE TABLE EMPBACKUP
-AS SELECT first_name fname, last_name lname FROM EMPLOYEES;
-
-or
-CREATE TABLE EMPBACKUP(fname, lname)
-AS SELECT first_name, last_name FROM EMPLOYEES;
-```
-
-3)  Alter a table
-```
-Add a new column:
-ALTER TABLE employees
-ADD (ADDRESS varchar2(100),
-     PHONE varchar2(15));
-
-Modify an existing column 
-**increase or decrease the width of a column
-****decreasing the size of a numeric column: the column must be empty
-****decreasing the size of a character column: can be done all existing values in the column are 
-     equal or less than the new width you to specify
-**Changing the data type of a column
-****The column must be empty (changing a varchar2 to char does not need the column being empty)
-**Changing the null or not null property of a column
-
-ALTER Table employees
-MODIFY (ADDRESS VARCHAR2(150));
-
-Define a new default value for the column
-
-Rename and drop a column
-ALTER TABLE table_name
-RENAME COLUMN old_name TO new_name
-
-ALTER TABLE table_name
-DROP COLUMN column_name;
-DROP (first_name, last_name);
-```
-
 
 ### Single-row functions
 1) character functions
@@ -201,6 +147,81 @@ select TRUNC(sysdate, 'MONTH') from dual; // the first date of the month in the 
 
 3) NULLIF(expr1, expr2) // expr1 == expr2, return null. Otherwise, return expr1.
 ```
+
+### SELECT from multi-table
+
+To connect n tables, it needs n-1 conditions at least
+
+**INNER JOIN**: returns rows when there is a match in both tables.
+
+**LEFT JOIN**: returns all rows from the left table, even if there are no matches in the 
+right table (+).
+
+**RIGHT JOIN**: returns all rows from the right table, even if there are no matches in the 
+left table (+).
+
+**FULL JOIN**: returns rows when there is a match in one of the tables.
+
+**SELF JOIN**: is used to join a table to itself as if the table were two tables, 
+temporarily renaming at least one table in the SQL statement.
+
+**CARTESIAN JOIN**: returns the Cartesian product of the sets of records from the two or more joined tables.
+
+### Manipulate table
+1) Create a table
+```
+CREATE TABLE [schema.]table
+(column datatype[size] [DEFAULT expr][, ...]);
+
+datatype: number, char, varchar2, date
+Explanation: NUMBER(12,2) 12 is the precision, 2 is the scale
+```
+2) create a table using exist table
+
+```
+CREATE TABLE table_name
+AS select statement...
+
+CREATE TABLE EMPBACKUP
+AS SELECT first_name fname, last_name lname FROM EMPLOYEES;
+
+or
+CREATE TABLE EMPBACKUP(fname, lname)
+AS SELECT first_name, last_name FROM EMPLOYEES;
+```
+
+3)  Alter a table
+```
+Add a new column:
+ALTER TABLE employees
+ADD (ADDRESS varchar2(100),
+     PHONE varchar2(15));
+
+Modify an existing column 
+**increase or decrease the width of a column
+****decreasing the size of a numeric column: the column must be empty
+****decreasing the size of a character column: can be done all existing values in the column are 
+     equal or less than the new width you to specify
+**Changing the data type of a column
+****The column must be empty (changing a varchar2 to char does not need the column being empty)
+**Changing the null or not null property of a column
+
+ALTER Table employees
+MODIFY (ADDRESS VARCHAR2(150));
+
+Define a new default value for the column
+
+Rename and drop a column
+ALTER TABLE table_name
+RENAME COLUMN old_name TO new_name
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+DROP (first_name, last_name);
+```
+
+
+
 
 ### Group functions
 ```
