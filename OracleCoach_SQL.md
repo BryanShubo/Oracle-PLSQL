@@ -11,11 +11,11 @@ RDBMS relational database management system
 ### SQL: sub languages 
 **DDL** (Data definition language):
 ```
- create / alter / drop
+ create (table or index) / alter (table) / drop (table or index)
  ```
 **DML**( Data manipulation language ):
  ```
- insert/update/delete
+ insert/update/delete /select
  ```
  **DCL** (Data Control language) :
  ```
@@ -29,6 +29,25 @@ RDBMS relational database management system
  ```
  select
 ```
+
+### SELECT (filting or sorting data)
+```
+
+
+
+
+
+**LIKE** 
+
+The pattern can contain special pattern-matching characters:
+1) _ :  matches exactly one character
+
+2) % :  matches zero or more characters. Note: '%' cannot match a null.
+
+
+**IS**  is used to compare a column with null
+```
+
 
 ### Manipulate table
 1) Create a table
@@ -82,17 +101,7 @@ ALTER TABLE table_name
 DROP COLUMN column_name;
 DROP (first_name, last_name);
 ```
-### LIKE, IS
-```
-The pattern can contain special pattern-matching characters:
-An underscore (_) in the pattern matches exactly one character (as opposed to one byte in 
-a multibyte character set) in the value.
 
-A percent sign (%) in the pattern can match zero or more characters (as opposed to bytes in a 
-multibyte character set) in the value. The pattern '%' cannot match a null.
-
-IS is used to compare a column with null
-```
 
 ### Single-row functions
 1) character functions
