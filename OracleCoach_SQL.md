@@ -31,23 +31,21 @@ RDBMS relational database management system
 ```
 
 ### SELECT (filting or sorting data)
-```
-
-
-
-
-
 **LIKE** 
-
+```
 The pattern can contain special pattern-matching characters:
 1) _ :  matches exactly one character
 
 2) % :  matches zero or more characters. Note: '%' cannot match a null.
-
-
-**IS**  is used to compare a column with null
 ```
 
+**IS**  is used to compare a column with null
+
+**ORDER BY ** : put it at the end of SELECT clause
+```
+1)ASC
+2)DESC
+```
 
 ### Manipulate table
 1) Create a table
