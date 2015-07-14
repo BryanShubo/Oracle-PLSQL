@@ -303,6 +303,13 @@ Purpose:
 Use the CREATE VIEW statement to define a view, which is a logical table based on one or 
 more tables or views. A view contains no data itself. The tables upon which a view is based are 
 called base tables.
+
+Views evaluate the data in the tables underlying the view definition at the time the view is 
+queried. It is a logical view of your tables, with no data stored anywhere else. The upside 
+of a view is that it will always return the latest data to you. The downside of a view is that 
+its performance depends on how good a select statement the view is based on. If the select 
+statement used by the view joins many tables, or uses joins based on non-indexed columns, the 
+view could perform poorly.
 ```
 
 ### Create an index
@@ -376,6 +383,29 @@ To create a PUBLIC synonym, you must have the CREATE PUBLIC SYNONYM system privi
 
 
 ### Materialized View
+```
+Materialized views are similar to regular views, in that they are a logical view of your data 
+(based on a select statement), however, the underlying query resultset has been saved to a table. 
+The upside of this is that when you query a materialized view, you are querying a table, which may 
+also be indexed. In addition, because all the joins have been resolved at materialized view refresh
+time, you pay the price of the join once (or as often as you refresh your materialized view), rather 
+than each time you select from the materialized view. In addition, with query rewrite enabled, Oracle
+can optimize a query that selects from the source of your materialized view in such a way that it 
+instead reads from your materialized view. In situations where you create materialized views as 
+forms of aggregate tables, or as copies of frequently executed queries, this can greatly speed up 
+the response time of your end user application. The downside though is that the data you get back 
+from the materialized view is only as up to date as the last time the materialized view has been refreshed.
+
+Materialized views can be set to refresh manually, on a set schedule, or based on the database 
+detecting a change in data from one of the underlying tables. Materialized views can be 
+incrementally updated by combining them with materialized view logs, which act as change data 
+capture sources on the underlying tables.
+
+Materialized views are most often used in data warehousing / business intelligence applications 
+where querying large fact tables with thousands of millions of rows would result in query 
+response times that resulted in an unusable application.
+
+```
 
 
 ### Database Links
