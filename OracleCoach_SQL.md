@@ -389,12 +389,13 @@ Materialized views are similar to regular views, in that they are a logical view
 The upside of this is that when you query a materialized view, you are querying a table, which may 
 also be indexed. In addition, because all the joins have been resolved at materialized view refresh
 time, you pay the price of the join once (or as often as you refresh your materialized view), rather 
-than each time you select from the materialized view. In addition, with query rewrite enabled, Oracle
-can optimize a query that selects from the source of your materialized view in such a way that it 
-instead reads from your materialized view. In situations where you create materialized views as 
-forms of aggregate tables, or as copies of frequently executed queries, this can greatly speed up 
+than each time you select from the materialized view. In addition, with query rewrite enabled, 
+Oracle can optimize a query that selects from the source of your materialized view in such a way 
+that it instead reads from your materialized view. In situations where you create materialized views 
+as forms of aggregate tables, or as copies of frequently executed queries, this can greatly speed up 
 the response time of your end user application. The downside though is that the data you get back 
-from the materialized view is only as up to date as the last time the materialized view has been refreshed.
+from the materialized view is only as up to date as the last time the materialized view has been
+refreshed.
 
 Materialized views can be set to refresh manually, on a set schedule, or based on the database 
 detecting a change in data from one of the underlying tables. Materialized views can be 
