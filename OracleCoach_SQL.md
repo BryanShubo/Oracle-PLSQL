@@ -291,6 +291,8 @@ ORDER BY column;
 
 SELECT JOB_ID, SUM(salary) from EMPLOYEES where JOB_ID like'A%' GROUP BY JOB_ID HAVING SUM(SALARY)>10000;
 
+SELECT first_name, count(1) as count from NAME_LIST group by first_name having count(1)>100;
+
 ```
 
 ### Data Dictionary
