@@ -46,6 +46,45 @@ The pattern can contain special pattern-matching characters:
 1)ASC
 2)DESC
 ```
+Row limiting(https://oracle-base.com/articles/12c/row-limiting-clause-for-top-n-queries-12cr1)
+```sql
+1)
+SELECT val
+FROM   rownum_order_test
+ORDER BY val DESC
+FETCH FIRST 5 ROWS ONLY;
+
+2) 
+SELECT val
+FROM   rownum_order_test
+ORDER BY val DESC
+FETCH FIRST 5 ROWS WITH TIES;
+
+3) 
+SELECT val
+FROM   rownum_order_test
+ORDER BY val
+FETCH FIRST 20 PERCENT ROWS ONLY;
+
+SELECT val
+FROM   (SELECT val, rownum AS rnum
+        FROM   (SELECT val
+                FROM   rownum_order_test
+                ORDER BY val)
+        WHERE rownum <= 8)
+WHERE  rnum >= 5;
+
+
+SELECT val
+FROM   rownum_order_test
+ORDER BY val
+OFFSET 4 ROWS FETCH NEXT 4 ROWS ONLY;
+
+SELECT val
+FROM   rownum_order_test
+ORDER BY val
+OFFSET 4 ROWS FETCH NEXT 20 PERCENT ROWS ONLY;
+```
 
 ### Single-row functions
 1) character functions
