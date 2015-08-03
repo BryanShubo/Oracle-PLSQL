@@ -822,4 +822,78 @@ insert into article1 value(null,'test',1);
 
 第三范式的要求如下： 满足第三范式（3NF）必须先满足第二范式（2NF）。简而言之，第三范式（3NF）要求一个
 
+数据库表中不包含已在其它表中已包含的非主关键字信息。
+所以第三范式具有如下特征：
+1，每一列只有一个值
+2，每一行都能区分。
+3，每一个表都不包含其他表已经包含的非主关键字信息。 例如，帖子表中只能出现发帖人的 id，而不能出现发帖人的 id，还同时出现发帖人姓名， 否则，只要出现同一发帖人 id 
+的所有记录，它们中的姓名部分都必须严格保持一致，这就 是数据冗余。
+
+1、说出一些数据库优化方面的经验?
+
+
+用 PreparedStatement  一般来说比 Statement 性能高：一个 sql 发给服务器去执行，涉及步骤： 语法检查、语义分析， 编译，缓存
+“inert into user values(1,1,1)”-二进制 “inert into user values(2,2,2)”-二进制 “inert into user 
+values(?,?,?)”-二进制
+有外键约束会影响插入和删除性能，如果程序能够保证数据的完整性，那在设计数据库时就 去掉外键。（比喻：就好比免检产品，就是为了提高效率，充分相信产品的制造商）
+（对于 hibernate 来说，就应该有一个变化：empleyee->Deptment 对象，现在设计时就成了
+employeedeptid）
+
+
+看 mysql 帮助文档子查询章节的最后部分，例如，根据扫描的原理，下面的子查询语句要比 第二条关联查询的效率高：
+1.    select e.name,e.salary where e.managerid=(select id from employee where name='zxx');
+
+
+2.      select e.name,e.salary,m.name,m.salary from employees e,employees m where e.managerid = 
+m.id and m.name='zxx';
+
+表中允许适当冗余，譬如，主题帖的回复数量和最后回复时间等 将姓名和密码单独从用户表中独立出来。这可以是非常好的一对一的案例哟！
+
+
+sql 语句全部大写，特别是列名和表名都大写。特别是 sql 命令的缓存功能，更加需要统一 大小写，sql 语句发给 oracle 服务器语法检查和编译成为内部指令缓存和执行指令。 
+根据缓存的特点，不要拼凑条件，而是用?和 PreparedStatment
+
+还有索引对查询性能的改进也是值得关注的。 备注：下面是关于性能的讨论举例
+
+
+航班 3 个城市
+m*
+select * from flight,city where flight.startcityid=city.cityid and city.name='beijing';
+m + n
+select * from flight where startcityid = (select cityid from city where cityname='beijing');
+
+
+select flight.id,'beijing',flight.flightTime from flight where startcityid = (select cityid from 
+city where cityname='beijing')
+
+
+UNION 在进行表链接后会筛选掉重复的记录，所以在表链接后会对所产生的结果集进
+行排序运算，删除重复的记录再返回结果。实际大部分应用中是不会产生重复的记录，最常 见的是过程表与历史表 UNION。如：
+select * from gc_dfys union
+select * from ls_jg_dfys
+这个 SQL 在运行时先取出两个表的结果，再用排序空间进行排序删除重复的记录，最 后返回结果集，如果表数据量大的话可能会导致用磁盘进行排序。
+而 UNION ALL 只是简单的将两个结果合并后就返回。这样，如果返回的两个结果集中有 重复的数据，那么返回的结果集就会包含重复的数据了。
+从效率上说，UNION ALL 要比 UNION 快很多，所以，如果可以确认合并的两个结果集 中不包含重复的数据的话，那么就使用 UNION ALL，
+
+
+
+
+3.分页语句
+
+
+取出 sql 表中第 31 到 40 的记录（以自动增长 ID 为主键）
+sql  server 方案 1：
+select top  10 * from t where id not  in (select top  30 id  from  t order  by id  )
+orde by id
+sql  server 方案 2：
+select top 10 * from t where id in  (select  top 40 id from t order  by id) order by id desc
+
+mysql 方案：select * from  t order  by id limit  30,10
+oracle 方案：select * from (select rownum r,* from t where r<=40) where r>30
+
+
+
+
+
+
 
