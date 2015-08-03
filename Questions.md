@@ -594,3 +594,232 @@ PLVcmt: PLVcmt package wraps logic and complexity for dealing with commit proces
 PLVrb: It provides a programmatic interface to roll-back activity in PL/SQL
 ```
 
+
+1、用两种方式根据部门号从高到低，工资从低到高列出每
+个员工的信息。
+
+
+employee:
+eid,ename,salary,deptid;
+select * from employee order by deptid desc,salary
+2、列出各个部门中工资高于本部门的平均工资的员工数和
+部门号，并按部门号排序
+创建表：
+mysql> create table employee921(id int primary key auto_increment,name varchar(5
+0),salary bigint,deptid int);
+插入实验数据：
+mysql> insert into employee921 values(null,'zs',1000,1),(null,'ls',1100,1),(null
+,'ww',1100,1),(null,'zl',900,1) ,(null,'zl',1000,2), (null,'zl',900,2) ,(null,'z l',1000,2) , 
+(null,'zl',1100,2);
+
+编写 sql 语句：
+
+（）select avg(salary) from employee921 group by deptid;
+（）mysql> select employee921.id,employee921.name,employee921.salary,employee921.dep
+tid tid from   employee921 where salary > (select avg(salary) from employee921 where    deptid =
+
+
+tid);
+效率低的一个语句，仅供学习参考使用（在 group  by 之后不能使用 where，只能使用
+having，在 group by 之前可以使用 where，即表示对过滤后的结果分组）：
+mysql> select employee921.id,employee921.name,employee921.salary,employee921.dep
+tid tid from   employee921 where salary > (select avg(salary) from employee921 group by deptid 
+having deptid = tid);
+（）select count(*) ,tid
+from (
+select employee921.id,employee921.name,employee921.salary,employee921.deptid tid from        
+employee921
+where salary >
+(select avg(salary) from employee921 where    deptid = tid)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+) as t
+group by tid ;
+
+另外一种方式：关联查询 select a.ename,a.salary,a.deptid from emp a,
+(select deptd,avg(salary) avgsal from emp group by deptid ) b where a.deptid=b.deptid and 
+a.salary>b.avgsal;
+
+1、存储过程与触发器必须讲，经常被面试到?
+
+
+create procedure insert_Student (_name varchar(50),_age int ,out _id int)
+begin
+insert into student value(null,_name,_age);
+select max(stuId) into _id from student;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+end;
+
+
+call insert_Student('wfz',23,@id);
+select @id;
+
+
+mysql> create trigger update_Student BEFORE update on student FOR EACH ROW
+-> select * from student;
+触发器不允许返回结果
+
+
+create trigger update_Student BEFORE update on student FOR EACH ROW
+insert into    student value(null,'zxx',28);
+mysql 的触发器目前不能对当前表进行操作
+
+
+create trigger update_Student BEFORE update on student FOR EACH ROW
+delete from articles    where id=8;
+这个例子不是很好，最好是用删除一个用户时，顺带删除该用户的所有帖子
+这里要注意使用 OLD.id
+
+
+触发器用处还是很多的，比如校内网、开心网、Facebook，你发一个日志，自动通知好 友，其实就是在增加日志时做一个后触发，再向通知表中写入条目。因为触发器效率高。而 UCH 
+没有用触发器，效率和数据处理能力都很低。
+存储过程的实验步骤：
+mysql> delimiter |
+mysql> create procedure insertArticle_Procedure (pTitle varchar(50),pBid int,out pId int)
+-> begin
+-> insert into article1 value(null,pTitle,pBid);
+-> select max(id) into pId from article1;
+-> end;
+-> |
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> call insertArticle_Procedure('传智播客',1,@pid);
+-> |
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> delimiter ;
+mysql> select @pid;
++------+
+| @pid |
++------+
+| 3        |
++------+
+1 row in set (0.00 sec)
+mysql> select * from article1;
++----+--------------+------+
+| id | title                | bid    |
++----+--------------+------+
+| 1    | test                  | 1        |
+| 2    | chuanzhiboke | 1        |
+| 3    | 传智播客        | 1       |
++----+--------------+------+
+3 rows in set (0.00 sec)
+
+触发器的实验步骤：
+create table board1(id int primary key auto_increment,name varchar(50),ar ticleCount int);
+create table article1(id int primary key auto_increment,title varchar(
+,bid int references board1(id));
+
+
+delimiter |
+
+
+create trigger insertArticle_Trigger after insert on article1 for each ro w begin
+-> update board1 set articleCount=articleCount+1 where id= NEW.bid;
+-> end;
+-> |
+delimiter ;
+
+
+insert into board1 value (null,'test',0);
+
+
+insert into article1 value(null,'test',1);
+还有，每插入一个帖子，都希望将版面表中的最后发帖时间，帖子总数字段进行同步 更新，用触发器做效率就很高。下次课设计这样一个案例，写触发器时，对于最后发帖时间 可能需要用 declare 
+方式声明一个变量，或者是用 NEW.posttime 来生成。
+
+
+
+1、数据库三范式是什么?
+
+
+第一范式（1NF）：字段具有原子性,不可再分。所有关系型数据库系统都满足第一范式） 数据库表中的字段都是单一属性的，不可再分。例如，姓名字段，其中的姓和名必须作
+为一个整体，无法区分哪部分是姓，哪部分是名，如果要区分出姓和名，必须设计成两个独 立的字段。
+
+第二范式（2NF）： 第二范式（2NF）是在第一范式（1NF）的基础上建立起来的，即满足第二范式（2NF）必 须先满足第一范式（1NF）。 
+要求数据库表中的每个实例或行必须可以被惟一地区分。通常需要为表加上一个列，以存储 各个实例的惟一标识。这个惟一属性列被称为主关键字或主键。
+
+
+第二范式（2NF）要求实体的属性完全依赖于主关键字。所谓完全依赖是指不能存在仅依赖 主关键字一部分的属性，如果存在，那么这个属性和主关键字的这一部分应该分离出来形成 
+一个新的实体，新实体与原实体之间是一对多的关系。为实现区分通常需要为表加上一个列， 以存储各个实例的惟一标识。简而言之，第二范式就是非主属性非部分依赖于主关键字。
+
+
+第三范式的要求如下： 满足第三范式（3NF）必须先满足第二范式（2NF）。简而言之，第三范式（3NF）要求一个
+create table article1(id int primary key auto_increment,title varchar(
+,bid int references board1(id));
+
+
+delimiter |
+
+
+create trigger insertArticle_Trigger after insert on article1 for each ro w begin
+-> update board1 set articleCount=articleCount+1 where id= NEW.bid;
+-> end;
+-> |
+delimiter ;
+
+
+insert into board1 value (null,'test',0);
+
+
+insert into article1 value(null,'test',1);
+还有，每插入一个帖子，都希望将版面表中的最后发帖时间，帖子总数字段进行同步 更新，用触发器做效率就很高。下次课设计这样一个案例，写触发器时，对于最后发帖时间 可能需要用 declare 
+方式声明一个变量，或者是用 NEW.posttime 来生成。
+
+
+
+1、数据库三范式是什么?
+
+
+第一范式（1NF）：字段具有原子性,不可再分。所有关系型数据库系统都满足第一范式） 数据库表中的字段都是单一属性的，不可再分。例如，姓名字段，其中的姓和名必须作
+为一个整体，无法区分哪部分是姓，哪部分是名，如果要区分出姓和名，必须设计成两个独 立的字段。
+
+第二范式（2NF）： 第二范式（2NF）是在第一范式（1NF）的基础上建立起来的，即满足第二范式（2NF）必 须先满足第一范式（1NF）。 
+要求数据库表中的每个实例或行必须可以被惟一地区分。通常需要为表加上一个列，以存储 各个实例的惟一标识。这个惟一属性列被称为主关键字或主键。
+
+
+第二范式（2NF）要求实体的属性完全依赖于主关键字。所谓完全依赖是指不能存在仅依赖 主关键字一部分的属性，如果存在，那么这个属性和主关键字的这一部分应该分离出来形成 
+一个新的实体，新实体与原实体之间是一对多的关系。为实现区分通常需要为表加上一个列， 以存储各个实例的惟一标识。简而言之，第二范式就是非主属性非部分依赖于主关键字。
+
+
+第三范式的要求如下： 满足第三范式（3NF）必须先满足第二范式（2NF）。简而言之，第三范式（3NF）要求一个
+
+
