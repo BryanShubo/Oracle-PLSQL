@@ -417,6 +417,17 @@ To create a PUBLIC synonym, you must have the CREATE PUBLIC SYNONYM system privi
 ### Procedures
 
 ### Functions
+Analytic Functions versus Aggregate Functions
+Like aggregate functions, analytic functions return aggregate results, but analytics do not group the result set. Instead, they return the group value multiple times with each record, allowing further analysis. Analytic queries also generally run faster and use fewer resources than aggregate queries.
+
+Analytic functions
+Return the same number of rows as the input
+The groups of rows on which an analytic function operates are defined by window partitioning and window frame clauses
+
+
+Aggregate functions
+Return a single summary value
+The groups of rows on which an aggregate function operates are defined by the SQL GROUP BY clause
 
 ### Queues
 
